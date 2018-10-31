@@ -1,10 +1,13 @@
-const timerId = setInterval(incrementTime, 1000);
+const timerId = setInterval(() => {
+    if(pauseButton.id === "pause"){
+    incrementTime()
+    }
+}, 1000);
 
 let timerThing = parseInt(document.querySelector('#counter').innerText)
 let timerLocation = document.querySelector('#counter')
 
 function incrementTime(){
-
  timerLocation.innerText = timerThing + 1;
  timerThing += 1
 }
@@ -13,6 +16,8 @@ function incrementTime(){
 const minus = document.getElementById('-')
 const plus = document.getElementById('+')
 const heart = document.getElementById('<3')
+const pauseButton = document.getElementById('pause')
+
 let currentTime = null;
 let timeHash = {}
 
@@ -27,6 +32,35 @@ if (timeHash[timerThing]){
   addList()
  } 
 })
+pauseButton.addEventListener('click', () => {
+    if (event.target.id === "pause"){
+     pauseTimer()
+    } else {
+     resumeTimer()
+    }
+})
+
+
+function pauseTimer(){
+    // clearInterval(timerId)
+    heart.disabled = true;
+    minus.disabled = true;
+    plus.disabled = true;
+    pauseButton.innerHTML = "resume"
+    pauseButton.id = "resume"
+}
+
+function resumeTimer(){
+    pauseButton.innerHTML = "pause"
+    pauseButton.id = "pause"
+    heart.disabled = false;
+    minus.disabled = false;
+    plus.disabled = false;
+    // timerId = setInterval(incrementTime, 1000);
+    
+   
+}
+
 
 function decrementTime(){
     
